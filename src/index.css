@@ -2,27 +2,26 @@
 
 @layer components {
   .basic-input {
-    @apply bg-white text-black py-1
-    flex w-full flex-1 rounded-lg focus:ring-violet-500
-    focus:shadow-xl focus:border-2 border-violet-500
-     cursor-pointer
+    @apply bg-white text-black py-1.5 px-1
+    flex w-full flex-1 rounded-lg border-violet-500
+    focus:shadow-xl border-2 cursor-pointer;
   }
-  
+
   .btn-themeBlue {
     @apply text-white font-semibold py-2 px-8 rounded-lg bg-[#3b82f6] 
     hover:bg-blue-200 border-2 border-[#3b82f6] hover:text-black
-    transition-all duration-300 hover:shadow-md cursor-pointer
+    transition-all duration-300 hover:shadow-md cursor-pointer;
   }
 
   .btn-themeOrange {
     @apply text-white font-semibold py-2 px-8 rounded-lg bg-[#f97316] 
     hover:bg-orange-200 border-2 border-[#f97316] hover:text-black 
-    transition-all duration-300 hover:shadow-md cursor-pointer
+    transition-all duration-300 hover:shadow-md cursor-pointer;
   }
 
   .btn-themeGreen {
     @apply text-white font-semibold py-2 px-8 rounded-lg bg-[#10b981] 
     hover:bg-green-200 border-2 border-[#10b981] hover:text-black 
-    transition-all duration-300 hover:shadow-md cursor-pointer
+    transition-all duration-300 hover:shadow-md cursor-pointer;
   }
 }
