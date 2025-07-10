@@ -11,13 +11,7 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={
-            !token ? (
-              <Login />
-            ) : (
-              <Navigate to="/home" replace />
-            )
-          }
+          element={!token ? <Login /> : <Navigate to="/home" replace />}
         />
         <Route
           path="/home"
@@ -26,6 +20,6 @@ const App = () => {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
