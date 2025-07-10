@@ -2,31 +2,57 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { setToken } from "../features/appSlice";
 import { setUser } from "../features/userSlice";
-import { login } from "../api/login";
+import { createUser, login } from "../api/login";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const { url } = useAppSelector((state) => state.app);
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [creating, setCreating] = useState<boolean>(false);
   const [email, setEmail] = useState<string>(""); // Only used when creating an account
 
   const handleLogin = () => {
-    // Handle login logic here
     login(url, username, password)
       .then((resp) => {
         const j = resp.data;
-        console.log("Login response:", j);
         if (j.error == 0) {
           dispatch(setToken(j.access_token));
           dispatch(setUser(j.user));
         }
       })
-      .catch((error) => {
-        console.error("Login error:", error);
+      .catch(() => {
         alert("An error occurred while logging in. Please try again.");
       });
+  };
+
+  const handleCreateUser = () => {
+    createUser(url, username, password, email)
+      .then((resp) => {
+        const j = resp.data;
+        if (j.error == 0) {
+          handleLogin();
+        }
+      })
+      .catch(() => {
+        alert(
+          "An error occurred while creating the account. Please try again."
+        );
+      })
+      .finally(() => {
+        setCreating(false);
+      });
+  };
+
+  const handleEnterDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key != "Enter") return;
+
+    if (!creating) {
+      handleLogin();
+    } else {
+      handleCreateUser();
+    }
   };
 
   if (!creating) {
@@ -46,6 +72,7 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleEnterDown}
           />
           <button className="btn-themeBlue" onClick={handleLogin}>
             Login
@@ -80,8 +107,9 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleEnterDown}
           />
-          <button className="btn-themeGreen" onClick={() => setCreating(false)}>
+          <button className="btn-themeGreen" onClick={handleCreateUser}>
             Sign Up
           </button>
         </div>
