@@ -47,7 +47,6 @@ const Login = () => {
 
   const handleEnterDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key != "Enter") return;
-
     if (!creating) {
       handleLogin();
     } else {

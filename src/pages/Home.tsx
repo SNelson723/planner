@@ -1,14 +1,34 @@
+import { NavLink } from 'react-router-dom';
 
+interface NavLinkProps {
+  to: string;
+  label: string;
+}
+
+const baseClass =
+  "border text-center py-2 mx-4 md:mx-5 px-6 md:px-10 rounded-b-md animate-all duration-500 bg-emerald-500 hover:bg-green-300 hover:text-black font-semibold";
+const activeClass = "bg-green-300 text-black";
+
+const navLinks: NavLinkProps[] = [
+  { to: "/todos", label: "To Do" },
+];
 
 const Home = () => {
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-4">Welcome to the Planner App</h1>
-      <p className="text-lg text-gray-700">This is your home page.</p>
-      <p className="text-sm text-gray-500 mt-2">You can start planning your tasks here!</p>
+    <div className=" flex justify-center">
+      {navLinks.map((link: NavLinkProps) => (
+        <NavLink
+          key={link.to}
+          to={link.to}
+          className={({ isActive }) =>
+            `${baseClass} ${isActive ? activeClass : ""}`
+          }
+        >
+          {link.label}
+        </NavLink>
+      ))}
     </div>
-  )
+  );
 };
 
 export default Home;
